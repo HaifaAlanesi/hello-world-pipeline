@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-world-deployment
+  labels:
+    app: hello-world
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: hello-world
+  template:
+    metadata:
+      labels:
+        app: hello-world
+    spec:
+      containers:
+      - name: hello-world-app
+        # Replace this with your actual ECR URI: 110015905621.dkr.ecr.us-east-2.amazonaws.com/hello-world-pipeline:latest
+        image: 110015905621.dkr.ecr.us-east-2.amazonaws.com/hello-world-pipeline
+        ports:
+        - containerPort: 80
