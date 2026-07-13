@@ -18,6 +18,10 @@ spec:
       containers:
       - name: hello-world-app
         # Replace this with your actual ECR URI: 110015905621.dkr.ecr.us-east-2.amazonaws.com/hello-world-pipeline:latest
-        image: 110015905621.dkr.ecr.us-east-2.amazonaws.com/hello-world-pipeline
+        image: 110015905621.dkr.ecr.us-east-2.amazonaws.com/hello-world-pipeline:latest
+        command: ["/bin/sh", "-c"]
+        args: ["while true; do echo 'Hello World! The pipeline is ready.'; sleep 3600; done"]
+        ports:
+        - containerPort: 80
       imagePullSecrets:  # Add these two lines
       - name: regcred
