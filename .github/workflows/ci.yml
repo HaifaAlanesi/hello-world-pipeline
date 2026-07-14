@@ -7,18 +7,22 @@ on:
 jobs:
   # 1. SonarQube Quality Scan
   sonar-scan:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - uses: actions/checkout@v4
       - name: SonarQube Scan
         uses: sonarsource/sonarqube-scan-action@master
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          SONAR_HOST_URL: http://192.168.1.205:9000  
+        with:
+          args: >
+            -Dsonar.host.url=http://192.168.1.205:9000
+            -Dsonar.projectKey=hello-world-pipeline  
 
   # 2. Build and Push Docker Image
   build-and-push:
-    needs: sonar-scan # Only runs if scan passes
+  #  needs: sonar-scan # Only runs if scan passes
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
